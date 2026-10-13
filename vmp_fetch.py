@@ -653,10 +653,16 @@ def main():
     print("\n".join(unique))
 
 
+
 if __name__ == "__main__":
+    import contextlib
+    import sys
+
     try:
-        main()
+        with contextlib.redirect_stdout(sys.stderr):
+            main()
     except KeyboardInterrupt:
-        print("\n[!] Остановлено пользователем")
+        print("[!] Остановлено пользователем", file=sys.stderr)
     except Exception as exc:
-        print(f"[-] Ошибка: {exc}")
+        print(f"[-] Ошибка: {exc}", file=sys.stderr)
+        sys.exit(1)
