@@ -453,6 +453,7 @@ def extract_ip_from_uri(uri):
     return match.group(1) if match else None
 
 
+
 def set_country_fragment(uri, geo):
     if geo:
         flag = cc_to_flag(geo.get("cc", ""))
@@ -461,7 +462,8 @@ def set_country_fragment(uri, geo):
     else:
         name = "Unknown • VMP"
 
-    return uri.split("#", 1)[0] + "#" + name
+    encoded_name = urllib.parse.quote(name, safe="")
+    return uri.split("#", 1)[0] + "#" + encoded_name
 
 
 class VMP:
