@@ -27,14 +27,14 @@ jobs:
         with:
           python-version: "3.12"
 
+      
       - name: Fetch VMP configurations
         run: |
           set -e
-          python vmp_fetch.py > vmp.txt
+          python vmp_fetch.py > vmp.txt 2> vmp.log
           test -s vmp.txt
-          echo "Конфигурации получены: $(wc -l < vmp.txt) строк"
-          head -c 200 vmp.txt
-          echo
+          echo "Конфигураций: $(grep -c '://' vmp.txt)"
+
 
       - name: Update GitHub Gist
         env:
